@@ -74,20 +74,16 @@ export default new Vuex.Store({
         ];
         dispatch('saveSuggestions', matchAll);
       };
-      console.log(searchQuery);
       if (searchQuery) {
-        console.log(searchQuery);
         let match = savedQueries.filter((user) => {
           return user.login
             .toLowerCase()
             .includes(searchQuery.toLowerCase());
         });
-        console.log("match", match);
         if (Object.prototype.hasOwnProperty.call(savedGithubQueries, searchQuery)) {
           let savedGithubSearchResults = savedGithubQueries[`${searchQuery}`];
           generateSuggestions(match, savedGithubSearchResults)
         } else {
-          console.log("searchApi", searchApi);
           fetch(searchApi, {
             headers: {
               "User-Agent": "khukhunaishvili",
@@ -99,7 +95,6 @@ export default new Vuex.Store({
               }
             })
             .then((data) => {
-              console.log("data", data);
               let suggestedUsers = {};
               suggestedUsers[`${searchQuery}`] = [];
               data.items.forEach((user) => {
